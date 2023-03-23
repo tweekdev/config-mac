@@ -25,6 +25,8 @@ set hidden
 call plug#begin()
 
 Plug 'jubnzv/virtual-types.nvim'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
 Plug 'https://github.com/preservim/nerdtree' " NerdTree
 Plug 'https://github.com/tpope/vim-commentary' " For Commenting gcc & gc
@@ -136,5 +138,20 @@ autocmd bufenter *
 
 " Reveal current file in NERDTree
 nnoremap <leader>f :NERDTreeFind<CR>
+
+" ---- }}}
+" FZF ---- {{{
+
+let $FZF_DEFAULT_OPTS = "--preview 'bat --color=always --style=header,grid --line-range :300 {}'"
+" Use rg to find files and ignore some folders
+let $FZF_DEFAULT_COMMAND = 'rg --files --ignore-case --hidden -g "!{.git,node_modules,vendor}/*"'
+command! -bang -nargs=? -complete=dir Files
+			\ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+" Map FZF command to Ctrl + P
+nnoremap <C-p> :FZF<CR>
+
+" Rg current word
+nnoremap <C-SPACE> :Rg <C-r><C-w><CR>
 
 " ---- }}}

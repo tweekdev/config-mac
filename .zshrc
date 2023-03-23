@@ -25,6 +25,10 @@ export NVM_DIR="$HOME/.nvm"
 # This loads nvm bash_completion
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
+#[ -x "$(command -v fzf)" ] \
+#	&& export FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/*,.git/*,.cache/*}"'
+
+
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -180,3 +184,12 @@ alias tml='tmux list-sessions'
 alias tmk='tmux kill-session -t'
 #alias vim to neovim
 alias vim='nvim'
+
+# Open file selected via fzf in vim
+function vimo() {
+	local fname
+	fname=$(fzf) || return
+	vim "$fname"
+}
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
