@@ -15,10 +15,38 @@
 	wip = !git commit -m "wip" 
 	pushf = !git push --force-with-lease     
 	ch = !git checkout     
-	br = !git branch --sort=-committerdate     
-	pushup = !git pushu 2>&1 | awk '/https/ {print $2}' | xargs xdg-open > /dev/null     
-	kill-branches = "!f() { git branch | awk '!/^*|master/ {print $1 }' | xargs git branch ${1--d};}; f"     
-	pushu = !git push -u origin `git rev-parse --abbrev-ref HEAD`
+	br = !git branch --sort=-committerdate  
+	feature-start = !sh -c 'git flow feature start $1 && git flow feature publish $1' -
+	feature-checkout = !sh -c 'git flow feature checkout $1' -
+	feature-finish = !sh -c 'gh pr merge -s feature/$1 && git flow feature delete -f --noremote $1 && git pull origin develop && git checkout develop' -
+	release-start = !sh -c 'git flow release start $1 && git flow release publish $1' -
+	release-checkout = !sh -c 'git checkout release/$1 && git pull --rebase origin release/$1' -
+	release-finish = !sh -c 'git flow release finish --push --nokeep -n --fetch $1' -
+	hotfix-start = !sh -c 'git flow hotfix start $1 && git flow hotfix publish $1 && git commit --allow-empty -m \"[hotfix-v$1] your message here\" && git push && sleep 5 && gh pr create --base main --title hotfix-v$1 --head hotfix/$1 --body \"c cho\"  --draft' -
+	hotfix-finish = !sh -c 'gh pr ready hotfix/$1 && git flow hotfix finish -n --nokeep --squash --push --fetch $1' -
+	git = ! exec git
+	pushf = push --force-with-lease
+	pushu = ! git push -u origin `git rev-parse --abbrev-ref HEAD`
+	pushup = ! git pushu 2>&1 | awk '/https/ {print $2}' | xargs xdg-open > /dev/null
+	kill-branches = "!f() { git branch | awk '!/^*|master/ {print $1 }' | xargs git branch ${1--d};}; f"
+	go  = "!f() { git fetch origin  \"$1\" && git checkout \"$1\"; }; f"
+	ctags = !.git/hooks/ctags
+	wip = !git add -A && git commit -m "Wip"
+	wipush = !git wip && git push
+	wipushf = !git wip && git pushf
+	wipushu = !git wip && git pushu
+	wipushup = !git wip && git pushup
+	pr = !git wipushup
+	lol = "log --graph --decorate --pretty=format:\"%Cred%h %Cblue%an %ai %Cgreen %s\""
+	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+	fuck = ! git pull --rebase && git push
+	co = checkout
+	edit = commit --amend
+	amend = commit --amend --no-edit
+	kill-branches = "!f() { git branch | awk '!/^\\*|master/ {print $1 }' | xargs git branch ${1--d};}; f"
+	showp = show --shortstat
+	squash = ! bash -c 'source $HOME/.vim/git_functions.sh && squash_commit_in_branch'
+	feat = flow feature start
 [init]
 	defaultBranch = master
 [core]

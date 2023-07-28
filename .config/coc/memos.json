@@ -1,0 +1,21 @@
+{
+  "coc-json|global": {
+    "json-schema-cache": {
+      "http://json.schemastore.org/prettierrc": {
+        "etag": "\"80e08ca9849bd81:0\"",
+        "fileName": "b2ed7a7b6c79e58baf94e4ce160282de.schema.json",
+        "updateTime": 1684933396753
+      },
+      "https://json.schemastore.org/prettierrc.json": {
+        "etag": "\"80e08ca9849bd81:0\"",
+        "fileName": "ea5ab10330a3ab77dfd6d00a735b0925.schema.json",
+        "updateTime": 1684933397076
+      },
+      "https://json.schemastore.org/expo-41.0.0.json": {
+        "etag": "\"0a4fb9ee1ed91:0\"",
+        "fileName": "ee7487ed1bb627cefdb206947ced6bc2.schema.json",
+        "updateTime": 1685969122850
+      }
+    }
+  }
+}
